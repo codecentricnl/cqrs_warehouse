@@ -1,16 +1,13 @@
 package nl.codecentric.cqrs_warehouse.domain.container;
 
-import java.util.UUID;
-
 import lombok.Builder;
-import org.axonframework.modelling.command.TargetAggregateIdentifier;
-
 import lombok.Data;
+
+import java.util.UUID;
 
 @Data
 @Builder
 public class LoadContainerCommand {
-    @TargetAggregateIdentifier
     private final UUID articleId;
     private final UUID containerId;
     private final UUID shipmentId;

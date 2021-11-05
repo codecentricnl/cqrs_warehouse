@@ -1,9 +1,9 @@
 package nl.codecentric.cqrs_warehouse.controllers;
 
-import nl.codecentric.cqrs_warehouse.domain.shipment.*;
+import nl.codecentric.cqrs_warehouse.domain.shipment.CreateShipmentCommand;
+import nl.codecentric.cqrs_warehouse.domain.shipment.InitialiseShipmentCommand;
 import nl.codecentric.cqrs_warehouse.repositories.ShipmentDTO;
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,29 +24,26 @@ public class ShipmentController {
 
     @PostMapping(path = "/shipments/create")
     public UUID createShipment(@RequestBody CreateShipmentCommand command) {
-        commandGateway.sendAndWait(command);
-        return command.getShipmentId();
+        return null;
     }
 
     @GetMapping(path = "/shipments")
     public CompletableFuture<List<ShipmentDTO>> getShipments() {
-        return queryGateway.query(new FetchAllShipmentsQuery(), ResponseTypes.multipleInstancesOf(ShipmentDTO.class));
+        return null;
     }
 
     @GetMapping(path = "/shipments/{shipmentId}")
     public CompletableFuture<Optional<ShipmentDTO>> getShipment(@PathVariable("shipmentId") String shipmentId) {
-        return queryGateway.query(new FetchShipmentByIdQuery(shipmentId), ResponseTypes.optionalInstanceOf(ShipmentDTO.class));
+        return null;
     }
 
     @PostMapping(path = "/shipments/initialise")
     public UUID initialiseShipment(@RequestBody InitialiseShipmentCommand command) {
-        commandGateway.sendAndWait(command);
-        return command.getShipmentId();
+        return null;
     }
 
     @PostMapping(path = "/shipments/{shipmentId}/departure")
     public void departShipment(@PathVariable("shipmentId") String shipmentId) {
-        commandGateway.sendAndWait(new DepartureShipmentCommand(UUID.fromString(shipmentId)));
     }
 
 }
